@@ -75,23 +75,28 @@ return s;
 	}
 	
 	private void ricorsione(List<Director> parziale, int livello, double c) {
-		
-		
+		if(parziale.size()>=2) {
+			if(this.getSommaPesiArchi(parziale)>c)
+				return;
+		}
+		//condizione di terminazione
+	
 		Director ultimo=parziale.get(parziale.size()-1);
 		List<Director> vicini=Graphs.neighborListOf(graph, ultimo);
 		for(Director v: vicini) {
 			if(!parziale.contains(v)) {
 				parziale.add(v);
 				if(parziale.size()>=2) {
-				if(this.getSommaPesiArchi(parziale)<=c) {
-					if(parziale.size()>this.max) {
-						this.max=parziale.size();
-						this.soluzione=new ArrayList<>(parziale);
-						System.out.println(soluzione);
-						return;
+					if(this.getSommaPesiArchi(parziale)<=c) {
+						if(parziale.size()>this.max) {
+							this.max=parziale.size();
+							this.soluzione=new ArrayList<>(parziale);
+							System.out.println(soluzione);
+							return;
+						}
+						
 					}
-				}
-				}
+					}
 				ricorsione(parziale, livello+1, c);
 				parziale.remove(parziale.size()-1);
 			}
